@@ -1,0 +1,26 @@
+# First stage: build dependencies
+FROM python:3.8-slim-buster as builder
+
+WORKDIR /app
+COPY requirements.txt .
+
+# Install dependencies in a virtual environment and remove cache files
+RUN python -m venv /app/venv && \
+    . /app/venv/bin/activate && \
+    pip install --no-cache-dir -r requirements.txt && \
+    find /app/venv -name '__pycache__' -exec rm -rf {} +
+
+# Second stage: final image
+FROM python:3.8-slim-buster
+
+WORKDIR /app
+COPY . .
+
+# Copy the virtual environment from the builder stage
+COPY --from=builder /app/venv /app/venv
+
+# Set the environment path to use the venv packages
+ENV PATH="/app/venv/bin:$PATH"
+
+EXPOSE 5000
+CMD ["python", "app.py"]
