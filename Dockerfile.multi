@@ -16,10 +16,8 @@ FROM python:3.8-slim-buster
 WORKDIR /app
 COPY . .
 
-# Copy the virtual environment from the builder stage
 COPY --from=builder /app/venv /app/venv
 
-# Set the environment path to use the venv packages
 ENV PATH="/app/venv/bin:$PATH"
 
 EXPOSE 5000
