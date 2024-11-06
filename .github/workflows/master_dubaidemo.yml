@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_4160b2f0c9034d4b9cd9ed36cd98baee }}/maheboobdev/weatherapp:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_4160b2f0c9034d4b9cd9ed36cd98baee }}/weatherapp:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -48,4 +48,4 @@ jobs:
         app-name: 'dubaidemo'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_a9c5c503803e4c9dabaa3d96b4ed3717 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_4160b2f0c9034d4b9cd9ed36cd98baee }}/maheboobdev/weatherapp:${{ github.sha }}'
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_4160b2f0c9034d4b9cd9ed36cd98baee }}/weatherapp:${{ github.sha }}'
